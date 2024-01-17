@@ -1,0 +1,128 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.full-block {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.full-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('boba_tea.svg') no-repeat bottom; 
+  background-size: contain; 
+  opacity: 0.2;
+  z-index: -10;
+}
+
+.main-block {
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  flex-direction: column;
+  max-width: 960px;
+  padding: 1rem;
+}
+
+.god {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  background: white;
+}
+.god span {
+  position: relative;
+  display: block;
+}
+.god h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+.god span {
+  display: block;
+  height: 100px;
+  overflow: hidden;
+  color: black;
+}
+
+.god .wrap > span {
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  padding: 10px;
+  /* background-color: beige; */
+}
+
+.btns {
+  display: flex;
+  align-items: end;
+  width: 100%;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+.btns-contain {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.fastfood {
+  padding-right: 2px;
+  color: #689F38;
+}
+
+.icon {
+  position: relative;
+}
+
+.icon-img {
+  position: absolute;
+  top: 30px;
+  left: -20px;
+  rotate: 30deg;
+}
+
+.btn-start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  padding: 1rem 2rem;
+  width: 200px;
+}
+
+.btn-info {
+  width: 100px;
+}
+.btn-info a {
+  text-decoration: none;
+  color: black;
+}
+
+.map {
+  width: 100%; 
+}
+.map iframe {
+  width: 100%;
+  height: 300px;
+  transition: all 0.5s ease;
+}
+.map .hidden {
+  visibility: hidden;
+  opacity: 0;
+}

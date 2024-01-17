@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="full-block">
+		<div class="main-block">
+			<section class="god">
+				<h1>
+					<span class="wrap">
+						<span>來一杯手搖</span>
+					</span>
+				</h1>
+			</section>
+
+			<!--  按鈕  -->
+			<section class="btns">
+        <div class="btns-contain">
+          <div class="checkbox">
+            <p class="fastfood">來點速食</p>
+            <div class="check">
+              <label class="toggle">
+                <input id="fastfood" type="checkbox">
+                <span class="button round"></span>
+              </label>
+            </div> 
+          </div>
+
+          <div class="icon">
+            <button class="btn-start">
+              轉起來
+            </button>
+            <img src="/boba_tea.svg" width="50px" height="50px" class="icon-img"/>
+          </div>
+        </div>
+        <button class="btn-info">
+          <a href="https://docs.google.com/spreadsheets/d/1WQ1KScXvmmARlnWa6NIe3YX1ePLDNP4rv9r8-2AiqQg/edit?usp=sharing" target="_blank">
+            添加資料
+          </a>
+        </button>
+			</section>
+
+			<!--  地圖  -->
+			<section id="map" class="map">
+        <h2>MAP</h2>
+				<iframe loading="lazy" frameborder="0" style="border:0" src="" allowfullscreen referrerpolicy="no-referrer-when-downgrade">
+				</iframe>
+			</section>
+		</div>
+	</main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const styles = document.createElement('style');
+      styles.textContent = '';
+
+      for (let i = 1; i <= 50; i++) {
+        const t = 0.03 * i;
+        const keyframes = `
+          @keyframes spin-${i} {
+            from {
+              top: 0;
+            }
+            to {
+              top: calc(-73px * ${i});
+            }
+          }
+        `;
+
+        const rule = `
+          .god .wrap > .span-${i} {
+            animation-name: spin-${i};
+            animation-duration: ${t}s;
+          }
+        `;
+
+        styles.textContent += keyframes + rule;
+      }
+
+      document.head.appendChild(styles);
+    });
+
+		// Maps Embed API、Google Sheets API
+		// https://console.developers.google.com/apis
+		const embedApiKey = 'AIzaSyAziGpGiQoy7dHiLkKULBWpr9ktjoJ2z7w';
+		const mapKey= 'AIzaSyBQEz60VCPGeVC9DGw4TwGcDGC0C0pqkvE'
+
+		const URL = 'https://sheets.googleapis.com/v4/spreadsheets/1WQ1KScXvmmARlnWa6NIe3YX1ePLDNP4rv9r8-2AiqQg/values/工作表1?alt=json&key=' + embedApiKey;
+		
+		// const duration = 2000;
+
+		fetch(URL)
+			.then(res => res.json())
+			.then(data => {
+				console.log(data)
+				let fastfoods = []; 
+				let drink = []; 
+
+				const datalist = data.values
+        const len = datalist.length
+
+				for(let i = 1; i < len; i++) {
+					datalist[i][1] === '是' ? fastfoods.push(datalist[i][0]) : drink.push(datalist[i][0]);
+				}
+				// console.log('速食:', fastfoods);
+    		// console.log('飲料:', drink);
+				
+				// 點擊按鈕後執行
+				let r; // 亂數
+				let max, min; // 陣列的最大、小值
+				let txt; // 結果
+
+				const map = document.querySelector('#map iframe');
+				const btn = document.querySelector('.btn-start');
+				
+				btn.addEventListener('click', e => {
+					e.preventDefault();
+
+					// 選店家 fn
+					const chooseShop = toggle => {
+						// 取亂數 fn
+						r = () => {
+							max = toggle.length - 1;
+							min = 0;
+							return Math.floor(Math.random() * (max - min + 1)) + min;
+						};
+
+						// 清空、插入
+						let input = document.querySelector('.wrap');
+						input.innerHTML = '';
+						for(let i = 0; i < toggle.length; i++) {
+							input.insertAdjacentHTML('beforeend', '<span>' + toggle[i] + '</span>');
+						}
+
+						// 禁止按鈕再被點擊
+						e.target.classList.add('not-allow');
+
+						// 加入動畫 class name
+						const list = document.querySelectorAll('.wrap > span');
+            Array.from(list).forEach(l => l.classList.add('span-' + (toggle.length - 1)));
+						// Array.prototype.forEach.call(list, l => l.classList.add('span-' + (toggle.length - 1)));
+
+						// 亂數決定中選店家
+						txt = toggle[r()];
+						list[0].innerText = txt;
+						
+						// 移除動畫
+						setTimeout(() => {
+							// 停止拉霸動畫
+							// Array.prototype.forEach.call(list, l => l.removeAttribute('class'));
+              Array.from(list).forEach(l => l.removeAttribute('class'));
+
+							// 改變地圖位置
+							map.src = 'https://www.google.com/maps/embed/v1/place?key=' + mapKey + '&q=' + txt;
+
+						}, 1000);
+
+						// 顯示地圖
+						map.addEventListener('load', () => {
+							map.classList.remove('hidden');
+							e.target.classList.remove('not-allow');
+						}, false);
+					};
+
+					// 地圖先消失
+					map.classList.add('hidden');
+
+					// 判斷速食後，開始執行
+					let fast = document.getElementById('fastfood');
+					fast.checked ? chooseShop(fastfoods) : chooseShop(drink);
+
+				}, false);
+
+			})
+	</script>
+</body>
+</html>
