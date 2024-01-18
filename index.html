@@ -30,13 +30,14 @@
             </div> 
           </div>
 
-          <div class="icon">
+          <div class="right-btn">
             <button class="btn-start">
               轉起來
+							<img src="/boba_tea.svg" width="50px" height="50px" class="btn-img" /> 
             </button>
-            <img src="/boba_tea.svg" width="50px" height="50px" class="icon-img"/>
           </div>
         </div>
+
         <button class="btn-info">
           <a href="https://docs.google.com/spreadsheets/d/1WQ1KScXvmmARlnWa6NIe3YX1ePLDNP4rv9r8-2AiqQg/edit?usp=sharing" target="_blank">
             添加資料
@@ -110,9 +111,9 @@
     		// console.log('飲料:', drink);
 				
 				// 點擊按鈕後執行
-				let r; // 亂數
-				let max, min; // 陣列的最大、小值
-				let txt; // 結果
+				let randomList; // 亂數
+				let max, min; 
+				let result; // 結果
 
 				const map = document.querySelector('#map iframe');
 				const btn = document.querySelector('.btn-start');
@@ -123,7 +124,7 @@
 					// 選店家 fn
 					const chooseShop = toggle => {
 						// 取亂數 fn
-						r = () => {
+						randomList = () => {
 							max = toggle.length - 1;
 							min = 0;
 							return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -145,8 +146,8 @@
 						// Array.prototype.forEach.call(list, l => l.classList.add('span-' + (toggle.length - 1)));
 
 						// 亂數決定中選店家
-						txt = toggle[r()];
-						list[0].innerText = txt;
+						result = toggle[randomList()];
+						list[0].innerText = result;
 						
 						// 移除動畫
 						setTimeout(() => {
@@ -155,7 +156,7 @@
               Array.from(list).forEach(l => l.removeAttribute('class'));
 
 							// 改變地圖位置
-							map.src = 'https://www.google.com/maps/embed/v1/place?key=' + mapKey + '&q=' + txt;
+							map.src = 'https://www.google.com/maps/embed/v1/place?key=' + mapKey + '&q=' + result;
 
 						}, 1000);
 

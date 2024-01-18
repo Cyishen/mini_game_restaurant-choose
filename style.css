@@ -14,13 +14,13 @@
 
 .full-block::before {
   content: "";
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: url('boba_tea.svg') no-repeat bottom; 
-  background-size: contain; 
+  background-size: 50% 50%;
   opacity: 0.2;
   z-index: -10;
 }
@@ -64,7 +64,6 @@
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   padding: 10px;
-  /* background-color: beige; */
 }
 
 .btns {
@@ -72,7 +71,7 @@
   align-items: end;
   width: 100%;
   flex-direction: column;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .btns-contain {
   display: flex;
@@ -86,17 +85,6 @@
   color: #689F38;
 }
 
-.icon {
-  position: relative;
-}
-
-.icon-img {
-  position: absolute;
-  top: 30px;
-  left: -20px;
-  rotate: 30deg;
-}
-
 .btn-start {
   display: flex;
   align-items: center;
@@ -104,10 +92,20 @@
   z-index: 1;
   padding: 1rem 2rem;
   width: 200px;
+  height: 100%;
+  cursor: pointer;
+}
+.btn-img{
+  rotate: -30deg;
+}
+.btn-start.not-allow {
+  pointer-events: none;
 }
 
 .btn-info {
   width: 100px;
+  height: 100%;
+  cursor: pointer;
 }
 .btn-info a {
   text-decoration: none;
