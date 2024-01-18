@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+	
   <main class="full-block">
 		<div class="main-block">
 			<section class="god">
@@ -24,8 +25,8 @@
             <p class="fastfood">來點速食</p>
             <div class="check">
               <label class="toggle">
-                <input id="fastfood" type="checkbox">
-                <span class="button round"></span>
+                <input id="fast" type="checkbox">
+                <span class="toggle-slide round"></span>
               </label>
             </div> 
           </div>
@@ -171,7 +172,7 @@
 					map.classList.add('hidden');
 
 					// 判斷速食後，開始執行
-					let fast = document.getElementById('fastfood');
+					let fast = document.getElementById('fast');
 					fast.checked ? chooseShop(fastfoods) : chooseShop(drink);
 
 				}, false);

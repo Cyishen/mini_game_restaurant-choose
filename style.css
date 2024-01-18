@@ -82,7 +82,61 @@
 
 .fastfood {
   padding-right: 2px;
-  color: #689F38;
+  margin-bottom: 10px;
+}
+
+/* 滑動特效 */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 50px;
+}
+.toggle input {
+  display: none;
+}
+.toggle-slide.round {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: gainsboro;
+  transition: 0.4s;
+  border-radius: 25px;
+}
+.toggle-slide.round:before {
+  position: absolute;
+  content: "";
+  height: 40px;
+  width: 40px;
+  left: 5px;
+  bottom: 5px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+.toggle-slide.round:after {
+  content: ''; 
+  background: url('burger.svg');
+  background-size: cover;
+  position: absolute;
+  left: 12px;
+  bottom: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  width: 25px; 
+  transition: 0.4s;
+}
+input:checked + .toggle-slide  {
+  background-color: #ffbc0d;
+}
+input:checked + .toggle-slide:before, 
+input:checked + .toggle-slide:after {
+  transform: translateX(50px);
 }
 
 .btn-start {
@@ -94,6 +148,8 @@
   width: 200px;
   height: 100%;
   cursor: pointer;
+  border: none;
+  border-radius: 0.5rem;
 }
 .btn-img{
   rotate: -30deg;
@@ -104,8 +160,11 @@
 
 .btn-info {
   width: 100px;
-  height: 100%;
+  height: 50px;
   cursor: pointer;
+  padding: 8px;
+  border: none;
+  border-radius: 0.5rem;
 }
 .btn-info a {
   text-decoration: none;
