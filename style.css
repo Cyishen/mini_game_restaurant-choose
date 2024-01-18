@@ -150,6 +150,7 @@ input:checked + .toggle-slide:after {
   cursor: pointer;
   border: none;
   border-radius: 0.5rem;
+  color: black;
 }
 .btn-img{
   rotate: -30deg;
